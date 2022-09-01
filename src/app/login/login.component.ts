@@ -13,5 +13,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  entrar() {
+    alert('Si jalo') +"Bienvenido" + this.user;
+  }
+
 
 }
