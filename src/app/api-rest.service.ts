@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+
+const URL ="https://devel.cdhidalgo.tecnm.mx/~iraic/foro-rest";
 @Injectable({
   providedIn: 'root'
 })
@@ -9,8 +11,8 @@ export class ApiRestService {
 
   constructor(private http: HttpClient) { }
 
-  login() {
-return this.http.get("172.17.123.57/foro-rest-final/public/login",
-{params:{username:"admin",password:"123"}})
+  login(user:string, pass:string) {
+return this.http.get(URL+'/login',
+{params:{username:user,password:pass}})
   }
 }
