@@ -19,8 +19,8 @@ export class HomeComponent implements OnInit {
     this.readTopics();
   }
 
-  readTopics() {
-    this.rest.getTopics('').subscribe(
+  readTopics(url:string ='') {
+    this.rest.getTopics(url).subscribe(
       respuesta => {
         this.topics = respuesta.data;
         this.pages = respuesta.links;

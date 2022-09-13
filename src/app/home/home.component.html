@@ -42,7 +42,9 @@
             <nav>
                 <ul class="pagination">
                     <ng-container *ngFor="let page of pages">
-                        <li class="page-item"><button>{{page.label}}</button></li>
+                        <li class="page-item">
+                            <button (click)="readTopics(page.url)"class="btn btn-light">{{page.label}}</button>
+                        </li>
                     </ng-container>
                 </ul>
             </nav>
