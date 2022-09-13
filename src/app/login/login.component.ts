@@ -9,18 +9,20 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  user: string = "admin";
-  pass: string = "";
+  user:string = 'admin';
+  pass:string = '';
 
   constructor(private rest: ApiRestService,
     private router: Router,
-    private msg:ToastrService) { }
+    private msg: ToastrService) { }
 
   ngOnInit(): void {
   }
-  entrar() {
+
+  entrar(){
     this.rest.login(this.user, this.pass).subscribe(
       response => {
+        this.rest.setUser(response.user);
         this.router.navigate(['/home']);
         this.msg.success("Bienvenido");
       },
@@ -29,6 +31,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
-
 }
