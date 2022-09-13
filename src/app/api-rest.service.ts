@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { from } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-
 
 const URL = "https://devel.cdhidalgo.tecnm.mx/~iraic/foro-rest";
 
@@ -11,33 +9,46 @@ interface User {
   username: string,
   role: string
 }
-
 interface Login {
   user: User,
   token: string
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ApiRestService {
-private user:User={id:0, username:'',role:''};
-private userObs = new BehaviorSubject<User>(this.user);
-userObs$=this.userObs.asObservable();
+  private user: User = { id: 0, username: '', role: '' };
+  private userObs = new BehaviorSubject<User>(this.user);
+  userObs$ = this.userObs.asObservable();
+
   constructor(private http: HttpClient) { }
 
-  setUser(user:User) {
-    this.user = user;
-    this.userObs.next(this.user);
+  setUser(user: User) {
+    localStorage.setItem("id", user.id.toString());
+    localStorage.setItem("username", user.username);
+    localStorage.setItem("rol", user.role);
+    return this.user;
   }
 
-  getUser(){
-return this.user;
+  getUser() {
+    this.user.id = parseInt(localStorage.getItem("id") || "0");
+    return this.user;
   }
 
   login(user: string, pass: string) {
-    return this.http.get(URL + '/login',
-      { params: { username: user, password: pass } })
+    return this.http.get<Login>(URL + '/login',
+      { params: { username: user, password: pass } });
   }
+  getTopics(url: string) {
+    if (url == '') url = URL + '/topics';
+   const token = localStorage.getItem('token')||'';
+    return this.http.get<any>(url,{headers:{Authorization:token}});
+  }
+
+postTopics(post:any){
+  const token = localStorage.getItem('token')||'';
+  return this.http.post<any>(URL + '/topics',{title:post.title},{headers:{Authorization:token}});
+}
+
 }
