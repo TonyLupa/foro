@@ -50,11 +50,9 @@
         
 
           <ng-container *ngFor="let page of pages">
-            <ng-template ngbPaginationPrevious>Prev</ng-template>
               <li class="page-item">
-                  <button aria-label="Next" (click)="readTopics(page.url)" class="page-link" [class.active]="page.active"> {{page.label}}</button>
+                  <button (click)="readTopics(page.url)" class="page-link" [class.active]="page.active"> {{page.label}}</button>
               </li>
-              <ng-template ngbPaginationNext>Next</ng-template>
           </ng-container>
 
       </ul>
