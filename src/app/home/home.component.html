@@ -46,14 +46,20 @@
     </table>
 
     <nav>
-      <ul class="pagination">
+      <ul class="pagination justify-content-center">
+        
+
           <ng-container *ngFor="let page of pages">
+            <ng-template ngbPaginationPrevious>Prev</ng-template>
               <li class="page-item">
-                  <button (click)="readTopics(page.url)" class="page-link" [class.active]="page.active">{{page.label}}</button>
+                  <button aria-label="Next" (click)="readTopics(page.url)" class="page-link" [class.active]="page.active"> {{page.label}}</button>
               </li>
+              <ng-template ngbPaginationNext>Next</ng-template>
           </ng-container>
+
       </ul>
   </nav>
+
 </div>
 </div>
 <!-- Ventana para editar el topic (tema) -->
